@@ -59,6 +59,7 @@ export default function PretextArticle({
   const pretextRef = useRef<PretextModule | null>(null);
   const floatsRef = useRef<FloatImage[]>([]);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const lastWidthRef = useRef<number>(0);
 
   const doLayout = useCallback(() => {
     const pretext = pretextRef.current;
@@ -66,6 +67,7 @@ export default function PretextArticle({
     if (!pretext || !container) return;
 
     const containerWidth = container.clientWidth;
+    lastWidthRef.current = containerWidth;
 
     for (const float of floatsRef.current) {
       const { img, side, paragraph, originalText } = float;
@@ -227,9 +229,14 @@ export default function PretextArticle({
 
     init();
 
-    // Re-layout on resize
+    // Re-layout on resize. The layout only depends on width, but doLayout()
+    // itself sets paragraph.style.minHeight, which changes this container's
+    // own observed box size — without the width check, that height change
+    // re-fires the observer, which calls doLayout() again, forever.
     const observer = new ResizeObserver(() => {
-      if (floatsRef.current.length > 0) doLayout();
+      if (floatsRef.current.length === 0) return;
+      if (container.clientWidth === lastWidthRef.current) return;
+      doLayout();
     });
     observer.observe(container);
     resizeObserverRef.current = observer;
