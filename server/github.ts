@@ -27,7 +27,7 @@ let cachedStarredRepos: GitHubRepo[] | null = null;
 let starredReposFetchedAt = 0;
 const MIN_STARS = 10;
 
-const PINNED_REPOS = ["swift-pretextkit", "Aurora", "gitdiff", "doom-raylib-zig", "Xarji", "instant-swift-sdk"];
+const PINNED_REPOS = ["Talkify", "swift-pretextkit", "Aurora", "gitdiff", "doom-raylib-zig", "instant-swift-sdk"];
 
 export async function getTopRepositories(limit = 6): Promise<GitHubRepo[]> {
   const now = Date.now();

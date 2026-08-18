@@ -43,10 +43,10 @@ interface HomeData {
 
 const PERSONAL_PROJECTS = [
   {
-    name: "Xarji",
-    tagline: "Self-hosted expense tracker for Georgian banks, reading SMS locally on macOS",
-    url: "https://www.xarji.app/",
-    icon: "/icons/xarji.svg",
+    name: "Talkify",
+    tagline: "Lightning-fast, free, local first voice dictation for macOS with on-device transcription",
+    url: "https://usetalkify.app",
+    icon: "/icons/talkify.png",
   },
   {
     name: "Camus",
